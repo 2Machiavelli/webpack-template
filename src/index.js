@@ -1,7 +1,4 @@
-// JS
-import './js/'
-
-// SCSS
+import './app/'
 import 'reset-css'
-import './assets/stylus/main.styl'
+import './assets/css/main.css'
 
