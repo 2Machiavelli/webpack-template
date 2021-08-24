@@ -1,11 +1,11 @@
-const webpack =  require('webpack')
-const merge = require('webpack-merge')
-const baseWebpackConfig = require('./webpack.base.conf')
+const webpack =  require("webpack")
+const merge = require("webpack-merge")
+const baseWebpackConfig = require("./webpack.base.conf")
 
 const devWebpackConfig = merge(baseWebpackConfig, {
-  mode: 'development',
+  mode: "development",
   output: {
-    publicPath: '/'
+    publicPath: "/"
   },
   devServer: {
     contentBase: baseWebpackConfig.externals.paths.dist,
@@ -13,7 +13,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   },
   plugins: [
     new webpack.SourceMapDevToolPlugin({
-      filename: '[file].map'
+      filename: "[file].map"
     })
   ]
 })

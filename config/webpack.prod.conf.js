@@ -1,13 +1,13 @@
-const merge = require('webpack-merge')
-const baseWebpackConfig = require('./webpack.base.conf')
+const merge = require("webpack-merge")
+const baseWebpackConfig = require("./webpack.base.conf")
 
 const buildWebpackConfig = merge(baseWebpackConfig, {
-  mode: 'production',
+  mode: "production",
   output: {
     clean: true,
-    publicPath: './'
+    publicPath: "./"
   },
-  devtool: 'source-map',
+  devtool: "source-map",
 })
 
 module.exports = new Promise((resolve, reject) => {

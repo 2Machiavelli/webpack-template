@@ -1,17 +1,17 @@
-const path = require('path')
-const fs = require('fs')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require("path")
+const fs = require("fs")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 const PATHS = {
-  src: path.join(__dirname, '../src'),
-  built: path.join(__dirname, '../built'),
-  assets: 'assets/'
+  src: path.join(__dirname, "../src"),
+  built: path.join(__dirname, "../built"),
+  assets: "assets/"
 }
 
 module.exports = {
-  target: 'web',
+  target: "web",
   externals: {
     paths: PATHS
   },
@@ -26,9 +26,9 @@ module.exports = {
     splitChunks: {
       cacheGroups: {
         vendor: {
-          name: 'vendors',
+          name: "vendors",
           test: /node_modules/,
-          chunks: 'all',
+          chunks: "all",
           enforce: true
         }
       }
@@ -42,21 +42,21 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: '/node_modules/'
+        loader: "babel-loader",
+        exclude: "/node_modules/"
       }, 
       {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        type: 'asset',
+        type: "asset",
         generator: {
-          filename: 'assets/fonts/[name][ext]'
+          filename: "assets/fonts/[name][ext]"
         }
       }, 
       {
         test: /\.(png|jpg|gif|svg)$/,
-        type: 'asset',
+        type: "asset",
         generator: {
-          filename: 'assets/img/[name][ext]'
+          filename: "assets/img/[name][ext]"
         }
       },
       {
@@ -69,11 +69,11 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: { sourceMap: true }
           }, 
           {
-            loader: 'postcss-loader',
+            loader: "postcss-loader",
             options: { 
               sourceMap: true, 
               config: { path: `./postcss.config.js` }
@@ -85,7 +85,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '~': PATHS.src
+      "~": PATHS.src
     }
   },
   plugins: [
@@ -93,7 +93,7 @@ module.exports = {
       filename: `${PATHS.assets}css/[name].[contenthash].css`,
     }),
     new CopyWebpackPlugin([
-      { from: `${PATHS.src}/static`, to: '' },
+      { from: `${PATHS.src}/static`, to: "" },
     ]),
     new HtmlWebpackPlugin({
       favicon: `${PATHS.src}/static/favicon.ico`,
