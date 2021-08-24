@@ -9,11 +9,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   },
   devServer: {
     contentBase: baseWebpackConfig.externals.paths.dist,
-    port: 8084,
-    overlay: {
-      warnings: true,
-      errors: true
-    }
+    port: 8080
   },
   plugins: [
     new webpack.SourceMapDevToolPlugin({

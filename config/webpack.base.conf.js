@@ -6,12 +6,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const PATHS = {
   src: path.join(__dirname, '../src'),
-  dist: path.join(__dirname, '../dist'),
+  built: path.join(__dirname, '../built'),
   assets: 'assets/'
 }
-
-const PAGES_DIR = `${PATHS.src}/pug/pages/`
-const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.pug'))
 
 module.exports = {
   target: 'web',
@@ -23,7 +20,7 @@ module.exports = {
   },
   output: {
     filename: `${PATHS.assets}js/[name].[contenthash].js`,
-    path: PATHS.dist
+    path: PATHS.built
   },
   optimization: {
     splitChunks: {
@@ -40,9 +37,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.pug$/,
-        use: 'pug-loader'
-      }, 
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
       {
         test: /\.js$/,
         loader: 'babel-loader',
@@ -61,36 +58,6 @@ module.exports = {
         generator: {
           filename: 'assets/img/[name][ext]'
         }
-      },
-      {
-        test: /\.styl$/,
-        use: [
-          {
-            loader: "style-loader"
-          },
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: '../../'
-            }
-          },
-          {
-            loader: "css-loader",
-            options: { 
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: { sourceMap: true, config: { path: `./postcss.config.js` } }
-          },
-          {
-            loader: "stylus-loader",
-            options: { 
-              sourceMap: true
-            }
-          }
-        ]
       },
       {
         test: /\.css$/,
@@ -128,10 +95,12 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: `${PATHS.src}/static`, to: '' },
     ]),
-    ...PAGES.map(page => new HtmlWebpackPlugin({
-      template: `${PAGES_DIR}/${page}`,
-      filename: `./${page.replace(/\.pug/,'.html')}`,
-      cache: false,
-    }))
+    new HtmlWebpackPlugin({
+      favicon: `${PATHS.src}/static/favicon.ico`,
+      template: `${PATHS.src}/html/index.html`,
+      filename: `index.html`,
+      minify: true,
+      cache: true
+    })
   ],
 }
